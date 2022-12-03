@@ -1,0 +1,37 @@
+<section style="background-color: #d2c9ff" class="py-5">
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <div class="col mb-5" *ngFor="let prod of products">
+        <div class="card h-100">
+          <!-- Product image-->
+          <img class="card-img-top" [src]="prod.image" alt="Product" />
+          <!-- Product details-->
+          <div class="card-body p-4">
+            <div class="text-left">
+              <!-- Product name-->
+              <h3 class="fw-bolder text-center">{{ prod.title.toUpperCase() }}</h3>
+              <h5 class="fw-bolder">Author: {{ prod.author }}</h5>
+              <h5 class="fw-bolder">Available: {{ prod.quantity }}</h5>
+              <!-- Product price-->
+              $ {{ prod.price }}
+            </div>
+          </div>
+          <!-- Product actions-->
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent d-flex justify-content-between">
+            <div>
+              <button class="btn btn-link px-2" (click)="decrease(prod)">
+                <i class="fas fa-minus"></i>
+              </button>
+              {{ prod.toBuyQuantity }}
+              <button class="btn btn-link px-2" (click)="increase(prod)">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+            <div *ngIf="userId !== -1" class="text-center"><button [disabled]="prod.toBuyQuantity === 0" class="btn btn-outline-dark mt-auto" (click)="addToCart(prod)">Buy</button></div>
+            <div *ngIf="userId === -1" class="text-center"><a class="btn btn-outline-dark mt-auto" [routerLink]="['/log-in']" >Log In To Buy</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
